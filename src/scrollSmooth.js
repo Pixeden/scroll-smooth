@@ -5,7 +5,7 @@ import {
   calcEndPoint,
 } from './tools'
 
-export default (elem, { 
+export default (target, { 
     duration = 500,
     context = window,
     offset = 0,
@@ -16,7 +16,7 @@ export default (elem, {
   if (typeof window !== 'object') return
   
   const start = context.scrollTop || window.pageYOffset
-  const end = calcEndPoint(elem, context, offset)
+  const end = calcEndPoint(target, context, offset)
   const clock = performance.now()
   const rAF = window.requestAnimationFrame
   
@@ -30,7 +30,7 @@ export default (elem, {
     }
     
     if (elapsed > duration) {
-      typeof callback === 'function' && callback(elem)
+      typeof callback === 'function' && callback(target)
     } else {
       rAF(tick)
     }

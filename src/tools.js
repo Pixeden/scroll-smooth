@@ -21,17 +21,17 @@ export const setPosition = (begin, end, elapsed, duration, ease = 'easeInOutCubi
       : begin + (end - begin) * easeFunctions[ease](elapsed / duration)
 }
 
-export const calcEndPoint = (elem, context = window, offset = 0) => {
-  if (isNumeric(elem)) {
-    return parseInt(elem) + offset
+export const calcEndPoint = (target, context = window, offset = 0) => {
+  if (isNumeric(target)) {
+    return parseInt(target) + offset
   }
   
   const y = context === window
     ? window.pageYOffset 
     : context.scrollTop - context.getBoundingClientRect().top
-  
-  const distance = elem.nodeName.toLowerCase() === 'html' ? -y 
-    : elem.getBoundingClientRect().top + y
+    
+  const distance = target.nodeName.toLowerCase() === 'html' ? -y 
+    : target.getBoundingClientRect().top + y
     
   return distance + offset
 }
