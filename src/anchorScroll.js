@@ -5,7 +5,6 @@ export default (
     query = '[href^="#"]:not([href="#"]',
     match = e => e.target.hash.substring(1),
     config,
-    spy = false,
   } = {}
 ) => {
   const links = document.querySelectorAll(query)
