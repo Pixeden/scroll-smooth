@@ -3,21 +3,27 @@ import scrollSmooth from './scrollSmooth'
 export default (
   {
     query = '[href^="#"]:not([href="#"]',
-    match = e => e.target.hash.substring(1),
-    config,
+    match = target => document.getElementById(target.hash.substring(1)),
+    hashChange = true,
+    scrollSmoothConfig,
   } = {}
 ) => {
   const links = document.querySelectorAll(query)
   const handler = e => {
     e.preventDefault()
-    const dest = document.getElementById(match(e))
+    const dest = match(e.target)
+
     if (!dest) return
+
+    if (hashChange) {
+      history.replaceState(null, null, `#${dest.id}`)
+    }
+
     scrollSmooth(dest, {
-      ...config,
-      callback: () => {},
+      ...scrollSmoothConfig,
     })
   }
-
+  
   Array.from(links).map(link => {
     link.addEventListener('click', handler, false)
   })
