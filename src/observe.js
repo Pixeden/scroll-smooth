@@ -6,7 +6,8 @@ export default (
   } = {}
 ) => {
   const options = {
-    threshold:  [0, 0.25, 0.5, 0.75, 1],
+    threshold: [0, 0.25, 0.5, 0.75, 1],
+    rootMargin: '-10px',
   }
   const links = document.querySelectorAll(query)
   const linksArr = Array.from(links)
@@ -18,7 +19,6 @@ export default (
     targets.push(document.getElementById(id))
     targetIndices[id] = index
   })
-  
 
   const callback = entries => {
     let oldTargetIndex = indicesInViewPort[0] || 0
@@ -27,9 +27,11 @@ export default (
     })
 
     if (indicesInViewPort.length === 0) {
+      linksArr[oldTargetIndex].classList.remove('active')
       return
     }
     if (oldTargetIndex === indicesInViewPort[0]) {
+      linksArr[indicesInViewPort[0]].classList.add('active')
       return
     }
 
@@ -41,14 +43,19 @@ export default (
     let index = targetIndices[entry.target.id]
     if (entry.intersectionRatio === 0) {
       let indexInViewPort = indicesInViewPort.indexOf(index)
-      indicesInViewPort.splice(indexInViewPort, 1)
+      indicesInViewPort = [
+        ...new Set([
+          ...indicesInViewPort.slice(0, indexInViewPort),
+          ...indicesInViewPort.slice(indexInViewPort + 1),
+        ]),
+      ]
     } else {
       if (index < oldTargetIndex) {
-        indicesInViewPort.unshift(index)
+        indicesInViewPort = [...new Set([index, ...indicesInViewPort])]
       } else if (index > indicesInViewPort[indicesInViewPort.length - 1]) {
-        indicesInViewPort.push(index)
+        indicesInViewPort = [...new Set([...indicesInViewPort, index])]
       } else {
-        indicesInViewPort.push(index)
+        indicesInViewPort = [...new Set([...indicesInViewPort, index])]
         indicesInViewPort.sort()
       }
     }
@@ -56,5 +63,4 @@ export default (
 
   const observer = new IntersectionObserver(callback, options)
   targets.forEach(target => observer.observe(target))
-
 }
