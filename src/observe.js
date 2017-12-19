@@ -1,66 +1,39 @@
 export default (
   {
+    activeClass = 'active',
     query = '[href^="#"]:not([href="#"]',
-    match = target => document.getElementById(target.hash.substring(1)),
-    matchLink = target => document.querySelector(`[href="#${target.id}"]`),
+    threshold = [0.25, 0.5, 0.75],
+    detectType = 'max', // 'max' or 'min'
   } = {}
 ) => {
-  const options = {
-    threshold: [0, 0.25, 0.5, 0.75, 1],
-    rootMargin: '-10px',
+  const options = { threshold }
+
+  const removeClass = node => node.classList.remove(activeClass)
+  const addClass = node => node.classList.add(activeClass)
+  
+  const unsetAllActives = () => {
+    document.querySelectorAll(`.${activeClass}`).forEach(removeClass)
   }
-  const links = document.querySelectorAll(query)
-  const linksArr = Array.from(links)
-  const elems = linksArr.map(link => link.hash.slice(1))
-  let targets = []
-  let targetIndices = {}
-  let indicesInViewPort = []
-  elems.map((id, index) => {
-    targets.push(document.getElementById(id))
-    targetIndices[id] = index
-  })
+
+  const setActive = activeNode => {
+    unsetAllActives()
+    addClass(document.querySelector(`a[href="#${activeNode.id}"]`))
+  }
 
   const callback = entries => {
-    let oldTargetIndex = indicesInViewPort[0] || 0
     entries.forEach(entry => {
-      update(entry, oldTargetIndex)
-    })
-
-    if (indicesInViewPort.length === 0) {
-      linksArr[oldTargetIndex].classList.remove('active')
-      return
-    }
-    if (oldTargetIndex === indicesInViewPort[0]) {
-      linksArr[indicesInViewPort[0]].classList.add('active')
-      return
-    }
-
-    linksArr[indicesInViewPort[0]].classList.add('active')
-    linksArr[oldTargetIndex].classList.remove('active')
-  }
-
-  const update = (entry, oldTargetIndex) => {
-    let index = targetIndices[entry.target.id]
-    if (entry.intersectionRatio === 0) {
-      let indexInViewPort = indicesInViewPort.indexOf(index)
-      indicesInViewPort = [
-        ...new Set([
-          ...indicesInViewPort.slice(0, indexInViewPort),
-          ...indicesInViewPort.slice(indexInViewPort + 1),
-        ]),
-      ]
-    } else {
-      if (index < oldTargetIndex) {
-        indicesInViewPort = [...new Set([index, ...indicesInViewPort])]
-      } else if (index > indicesInViewPort[indicesInViewPort.length - 1]) {
-        indicesInViewPort = [...new Set([...indicesInViewPort, index])]
-      } else {
-        indicesInViewPort = [...new Set([...indicesInViewPort, index])]
-        indicesInViewPort.sort()
+      if (entry.intersectionRatio >= Math[detectType](...threshold)) {
+        setActive(entry.target)
       }
-    }
+    })
   }
 
+  const links = document.querySelectorAll(query)
   const observer = new IntersectionObserver(callback, options)
-  targets.forEach(target => observer.observe(target))
+  const observeTarget = link => {
+    const target = document.querySelector(`#${link.hash.slice(1)}`)
+    observer.observe(target)
+  }
+
+  links.forEach(observeTarget)
 }
