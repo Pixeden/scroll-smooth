@@ -1,7 +1,7 @@
 export default (
   {
     activeClass = 'active',
-    query = '[href^="#"]:not([href="#"]',
+    query = '[href^="#"]:not([href="#"]):not([href="#0"])',
     threshold = [0.25, 0.5, 0.75],
     detectType = 'max', // 'max' or 'min'
   } = {}
@@ -10,7 +10,7 @@ export default (
 
   const removeClass = node => node.classList.remove(activeClass)
   const addClass = node => node.classList.add(activeClass)
-  
+
   const unsetAllActives = () => {
     document.querySelectorAll(`.${activeClass}`).forEach(removeClass)
   }
