@@ -26,7 +26,7 @@ export const calcEndPoint = (target, context = window, offset = 0) => {
     return parseInt(target) + offset
   }
   
-  const y = context === window
+  const y = (context === window || context === document.documentElement)
     ? window.pageYOffset 
     : context.scrollTop - context.getBoundingClientRect().top
     
