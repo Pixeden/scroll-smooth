@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Test</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div
+      style="width:200px;height:100000px;background: linear-gradient(0deg, #ef3434, #ef9134, #efef34, #91ef34, #34ef34, #34ef91, #34efef, #3491ef, #3434ef, #9134ef, #ef34ef, #ef3491, #ef3434);"
+    ></div>
+    <div id="target">this is the target</div>
+    <script type="text/javascript" src="../dist/index.umd.js"></script>
+    <script>
+      const target = document.getElementById('target')
+      scrollSmooth.to(target, {})
+      console.log(document.documentElement.getBoundingClientRect())
+    </script>
+  </body>
+</html>
