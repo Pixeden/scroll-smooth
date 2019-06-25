@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test</title>
+    <style media="screen">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+      }
+      .navbar li {
+        display: inline-block;
+      }
+      section {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .section-1 {
+        background: #eaeaea;
+      }
+      .section-2 {
+        background: #fafafa;
+      }
+      .section-3 {
+        background: #ccc;
+      }
+      .active {
+        background: #559ada;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#section-1">Section 1</a></li>
+        <li><a href="#section-2">Section 2</a></li>
+        <li><a href="#section-3">Section 3</a></li>
+        <li><a href="#0">Section 3</a></li>
+      </ul>
+    </nav>
+    <section id="section-1" class="current">
+      <h1>Section 1</h1>
+    </section>
+    <section id="section-2">
+      <h1>Section 2</h1>
+    </section>
+    <section id="section-3">
+      <h1>Section 3</h1>
+    </section>
+    <script type="text/javascript" src="index.umd.js"></script>
+    <script type="text/javascript">
+      scrollSmooth.anchorScroll()
+      scrollSmooth.observe()
+    </script>
+  </body>
+</html>
