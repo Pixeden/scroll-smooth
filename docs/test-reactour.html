@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="App">
+      <div class="App-header">Header</div>
+      <div class="App-content">
+        <div class="App-page">
+          <div class="App-pageContent ">
+            <div class="App-pageContentScrollcontainer justify-content-center">
+              <div class="Categorypage">
+                <div class="Categorypage-left">
+                  <div
+                    class="CategoryList"
+                    style="flex-grow: 2;"
+                    data-tut="tour-category"
+                  >
+                    <div class="CategoryList" style="flex-grow: 2;">
+                      <div class="CustomCardList">
+                        <div class="CategoryCard">Card 0</div>
+                        <div class="CategoryCard">Card 1</div>
+                        <div class="CategoryCard">Card 2</div>
+                        <div class="CategoryCard">Card 3</div>
+                        <div class="CategoryCard">Card 4</div>
+                        <div class="CategoryCard">Card 5</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="Categorypage-right">
+                  <div class="CustomCardList">
+                    <div class="CategoryCard" data-tut="tour-card-6">
+                      Card 6
+                    </div>
+                    <div class="CategoryCard">Card 7</div>
+                    <div class="CategoryCard">Card 8</div>
+                    <div class="CategoryCard" data-tut="tour-card-9">
+                      Card 9
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../dist/index.umd.js"></script>
+    <script>
+      const target = document.querySelector('[data-tut="tour-card-9"]')
+      scrollSmooth.to(target, {})
+      console.log(document.documentElement.getBoundingClientRect())
+    </script>
+  </body>
+</html>
