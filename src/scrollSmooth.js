@@ -12,7 +12,7 @@ export default (
 ) => {
   if (typeof window !== 'object') return
 
-  const start = context.scrollTop || window.pageYOffset
+  const start = context.scrollTop ?? window.pageYOffset
   const end = calcEndPoint(target, context, offset)
   const clock = performance.now()
   const rAF = window.requestAnimationFrame
