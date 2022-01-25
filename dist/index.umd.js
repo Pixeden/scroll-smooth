@@ -97,12 +97,12 @@ exports.default = function (target) {
       _ref$offset = _ref.offset,
       offset = _ref$offset === undefined ? 0 : _ref$offset,
       _ref$ease = _ref.ease,
-      ease = _ref$ease === undefined ? 'easeInOutCubic' : _ref$ease,
+      ease = _ref$ease === undefined ? "easeInOutCubic" : _ref$ease,
       callback = _ref.callback;
 
-  if ((typeof window === 'undefined' ? 'undefined' : _typeof(window)) !== 'object') return;
+  if ((typeof window === "undefined" ? "undefined" : _typeof(window)) !== "object") return;
 
-  var start = context.scrollTop || window.pageYOffset;
+  var start = context.scrollTop !== null && context.scrollTop !== undefined ? context.scrollTop : window.pageYOffset;
   var end = (0, _tools.calcEndPoint)(target, context, offset);
   var clock = performance.now();
   var rAF = window.requestAnimationFrame;
@@ -117,7 +117,7 @@ exports.default = function (target) {
     }
 
     if (elapsed > duration) {
-      typeof callback === 'function' && callback(target);
+      typeof callback === "function" && callback(target);
     } else {
       rAF(tick);
     }
@@ -126,7 +126,7 @@ exports.default = function (target) {
   tick();
 };
 
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 /* 1 */

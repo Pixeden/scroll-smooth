@@ -1,4 +1,4 @@
-import { easeFunctions, isNumeric, setPosition, calcEndPoint } from './tools'
+import { easeFunctions, isNumeric, setPosition, calcEndPoint } from "./tools";
 
 export default (
   target,
@@ -6,32 +6,35 @@ export default (
     duration = 500,
     context = window,
     offset = 0,
-    ease = 'easeInOutCubic',
+    ease = "easeInOutCubic",
     callback,
   } = {}
 ) => {
-  if (typeof window !== 'object') return
+  if (typeof window !== "object") return;
 
-  const start = context.scrollTop ?? window.pageYOffset
-  const end = calcEndPoint(target, context, offset)
-  const clock = performance.now()
-  const rAF = window.requestAnimationFrame
+  const start =
+    context.scrollTop !== null && context.scrollTop !== undefined
+      ? context.scrollTop
+      : window.pageYOffset;
+  const end = calcEndPoint(target, context, offset);
+  const clock = performance.now();
+  const rAF = window.requestAnimationFrame;
 
   const tick = () => {
-    const elapsed = performance.now() - clock
-    const pos = setPosition(start, end, elapsed, duration, ease)
+    const elapsed = performance.now() - clock;
+    const pos = setPosition(start, end, elapsed, duration, ease);
     if (context !== window) {
-      context.scrollTop = pos
+      context.scrollTop = pos;
     } else {
-      window.scroll(0, pos)
+      window.scroll(0, pos);
     }
 
     if (elapsed > duration) {
-      typeof callback === 'function' && callback(target)
+      typeof callback === "function" && callback(target);
     } else {
-      rAF(tick)
+      rAF(tick);
     }
-  }
+  };
 
-  tick()
-}
+  tick();
+};

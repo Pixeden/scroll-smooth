@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _tools = require('./tools');
+var _tools = require("./tools");
 
 exports.default = function (target) {
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
@@ -17,12 +17,12 @@ exports.default = function (target) {
       _ref$offset = _ref.offset,
       offset = _ref$offset === undefined ? 0 : _ref$offset,
       _ref$ease = _ref.ease,
-      ease = _ref$ease === undefined ? 'easeInOutCubic' : _ref$ease,
+      ease = _ref$ease === undefined ? "easeInOutCubic" : _ref$ease,
       callback = _ref.callback;
 
-  if ((typeof window === 'undefined' ? 'undefined' : _typeof(window)) !== 'object') return;
+  if ((typeof window === "undefined" ? "undefined" : _typeof(window)) !== "object") return;
 
-  var start = context.scrollTop || window.pageYOffset;
+  var start = context.scrollTop !== null && context.scrollTop !== undefined ? context.scrollTop : window.pageYOffset;
   var end = (0, _tools.calcEndPoint)(target, context, offset);
   var clock = performance.now();
   var rAF = window.requestAnimationFrame;
@@ -37,7 +37,7 @@ exports.default = function (target) {
     }
 
     if (elapsed > duration) {
-      typeof callback === 'function' && callback(target);
+      typeof callback === "function" && callback(target);
     } else {
       rAF(tick);
     }
@@ -46,4 +46,4 @@ exports.default = function (target) {
   tick();
 };
 
-module.exports = exports['default'];
+module.exports = exports["default"];
